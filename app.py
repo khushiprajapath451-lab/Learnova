@@ -121,7 +121,7 @@ if menu == "Login":
     st.stop()
 
 elif st.session_state.role == "admin" and menu == "Admin Panel":
-    st.title("👥 Admin Panel - Complete Student Tracking")
+    st.title(" Admin Panel - Complete Student Tracking")
 
     conn = get_connection()
     df_users = pd.read_sql("SELECT username FROM users WHERE role='student'", conn)
