@@ -184,7 +184,7 @@ elif st.session_state.role == "admin" and menu == "Admin Panel":
         st.info("No students registered yet.")
 
 elif st.session_state.role == "student" and menu == "Main Dashboard":
-    st.title(f"🤖 AI-Powered Learning Platform - Welcome, {st.session_state.username}!")
+    st.title(f" AI-Powered Learning Platform - Welcome, {st.session_state.username}!")
     
     with st.form("student_form"):
         col1, col2 = st.columns(2)
@@ -230,22 +230,22 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
         subject = st.session_state.selected_subject
         level = st.session_state.subject_levels.get(subject, "intermediate")
         
-        st.markdown("## 📚 Recommended Learning Plan")
+        st.markdown("##  Recommended Learning Plan")
         quizzes_count = rec.get('quizzes', rec.get('videos', 0) // 2)
         
         st.markdown(f"""
         <div class="recommendation-card">
         <h3>{rec['course']}</h3>
-        <p><strong>🤖 AI Level:</strong> <span style="color:#C084FC">{level.title()}</span></p>
+        <p><strong> AI Level:</strong> <span style="color:#C084FC">{level.title()}</span></p>
         <p><strong>Difficulty:</strong> {rec['difficulty']}</p>
         <p><strong>Duration:</strong> {rec['duration']}</p>
         <p><strong>Priority:</strong> {rec['priority']}</p>
-        <p><strong>📹 Videos:</strong> {rec['videos']} | <strong>📝 Quizzes:</strong> {quizzes_count}</p>
+        <p><strong> Videos:</strong> {rec['videos']} | <strong> Quizzes:</strong> {quizzes_count}</p>
         </div>
         """, unsafe_allow_html=True)
 
         st.markdown("---")
-        st.subheader("🎥 Learning Materials")
+        st.subheader(" Learning Materials")
         
         if st.session_state.learning_style == "Videos":
             videos = VIDEO_LIBRARY.get(subject, {}).get(level, [])
@@ -264,7 +264,7 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
                     file_path = resource["file"]
                     if os.path.exists(file_path):
                         with open(file_path, "rb") as f:
-                            st.download_button(label=f"📖 {resource['title']}", data=f, 
+                            st.download_button(label=f" {resource['title']}", data=f, 
                                             file_name=os.path.basename(file_path), mime="application/pdf")
                     else:
                         st.warning(f"File not found: {resource['title']}")
@@ -272,7 +272,7 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
                 st.info("No reading resources available.")
 
         elif st.session_state.learning_style == "Practice Problems":
-            st.markdown("### 🧮 Practice Questions")
+            st.markdown("###  Practice Questions")
             st.write("1. Solve 10 topic-based questions")
             st.write("2. Attempt previous year board questions") 
             st.write("3. Complete 1 timed mock test")
@@ -280,12 +280,12 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
             st.success("Practice module activated!")
 
         # QUIZ & ACHIEVEMENTS
-        st.markdown("### 📊 Take Quiz")
+        st.markdown("###  Take Quiz")
         quiz_link = QUIZ_LINKS.get(subject)
         if quiz_link:
             st.link_button(f"Start {subject} Quiz", quiz_link, use_container_width=True)
         
-        st.markdown("### 🎯 Enter Quiz Score")
+        st.markdown("###  Enter Quiz Score")
         score = st.number_input("Score (out of 10)", 0, 10, 5)
         progress = score * 10
         st.progress(progress)
@@ -300,7 +300,7 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
             st.warning("🥉 Keep Practicing!")
 
         # PREVIOUS ATTEMPTS
-        st.markdown("### 📜 Previous Attempts")
+        st.markdown("###  Previous Attempts")
         conn = get_connection()
         c = conn.cursor()
         c.execute("""
@@ -317,11 +317,11 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
             df_history = pd.DataFrame(rows, columns=["Subject", "Level", "Quiz Score", "Class", "Time"])
             st.dataframe(df_history, use_container_width=True)
         else:
-            st.info("📝 No previous attempts yet.")
+            st.info(" No previous attempts yet.")
 
         # ML FEEDBACK SECTION
         st.markdown("---")
-        st.subheader("🤖 AI Adaptive Learning")
+        st.subheader(" AI Adaptive Learning")
         
         col1, col2 = st.columns([3, 1])
         with col1:
@@ -329,7 +329,7 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
         with col2:
             st.metric("AI Level", level.title())
 
-        if st.button("🚀 Train AI & Update Level", type="primary"):
+        if st.button(" Train AI & Update Level", type="primary"):
             # SAVE FEEDBACK
             conn = get_connection()
             c = conn.cursor()
@@ -341,17 +341,17 @@ elif st.session_state.role == "student" and menu == "Main Dashboard":
             conn.close()
 
             # ML PROCESS
-            st.info("🔄 Training AI model...")
+            st.info(" Training AI model...")
             train_model()
             predicted_level = predict_level("General Learning", subject, "video", feedback_rating, score)
             
             if predicted_level:
                 old_level = st.session_state.subject_levels[subject]
                 st.session_state.subject_levels[subject] = predicted_level
-                st.success(f"🤖 AI upgraded from **{old_level.title()}** → **{predicted_level.title()}**!")
+                st.success(f" AI upgraded from **{old_level.title()}** → **{predicted_level.title()}**!")
                 st.balloons()
             else:
-                st.warning("ℹ️ Need more data for predictions")
+                st.warning(" Need more data for predictions")
             
             st.rerun()
 
@@ -372,7 +372,7 @@ elif menu == "Analytics":
 elif menu == "About":
     st.title("About AI Learning Platform")
     st.markdown("""
-    **🎓 Features:**
+    ** Features:**
     - **Admin**: Complete student tracking + analytics
     - **Students**: AI-powered personalized recommendations  
     - **Real-time**: ML model adapts to performance
