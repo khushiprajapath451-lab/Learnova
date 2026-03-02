@@ -1,8 +1,4 @@
-# models/recommendation.py
 
-# ======================================================
-# CONSTANTS (ADD THIS AT TOP)
-# ======================================================
 
 WEAK_SUBJECT_THRESHOLD = 50
 ADVANCED_THRESHOLD = 80
@@ -16,9 +12,7 @@ DEFAULT_INTERMEDIATE_DURATION = "4 weeks"
 DEFAULT_ADVANCED_DIFFICULTY = "Advanced"
 DEFAULT_ADVANCED_DURATION = "3 weeks"
 
-# ======================================================
-# SIMPLE DUMMY ML MODEL (SAFE VERSION)
-# ======================================================
+
 
 def train_model():
     """
@@ -27,14 +21,12 @@ def train_model():
     """
     return None, None, None, None
 
-# ======================================================
-# 1️⃣ RULE-BASED ENGINE (Your Existing Logic)
-# ======================================================
+
 
 def generate_recommendation(profile):
     recommendations = []
 
-    # ✅ SAFE ACCESS
+    
     class_level = profile.get("class_level", "Class")
     subject = profile.get("subject", "Subject")
     performance = profile.get("performance", 50)
@@ -81,9 +73,7 @@ def generate_recommendation(profile):
             "quizzes" : 1
         })
 
-    # ======================================================
-    # 2️⃣ ML FEEDBACK LAYER (NEW ADDITION)
-    # ======================================================
+    
 
     model, le_intent, le_subject, le_type = train_model()
 
